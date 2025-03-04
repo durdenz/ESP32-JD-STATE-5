@@ -147,7 +147,7 @@ void IRAM_ATTR onTimer0()
       changeState(STATE_ACTIVE);
     } else if (currentState == STATE_VENDING) {
       // **TEMP** -> Stop Animations if screen is touched
-      AnimateGIF = false;
+      // AnimateGIF = false;
     }
   } else {    // No Touchscreen Event
     // Check and see if inactivity time has been exceeded and if so, go into standby state

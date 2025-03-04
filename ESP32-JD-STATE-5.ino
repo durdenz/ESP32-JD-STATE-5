@@ -11,7 +11,9 @@
 TFT_eSPI tft = TFT_eSPI();
 AnimatedGIF gif;
 
-String gifFiles[] = {"/1.gif"};
+String gifFiles[] = {"/VendLoad.gif",
+                    "/StandBy_NiCola_optimize.gif",
+                    "/Logo_Trans_Pos.gif"};
 int gifIndex = 0;
 
 bool AnimateGIF = false;
@@ -205,6 +207,7 @@ void StateVending() {
 
   tft.drawCentreString(tempText, centerX, textY, FONT_SIZE);
 
+  gifIndex = 0; // gif for Dispense State
   PlayGIF(gifFiles[gifIndex], 5); // Play GIF off of SD card for 5 seconds
   // delay(1000);
   
@@ -233,13 +236,17 @@ void StateActive() {
   int textY = 80;
  
   // Print to screen
-  String tempText = "Active State";
-  tft.drawCentreString(tempText, centerX, textY, FONT_SIZE);
-  tft.drawCentreString("Welcome to Jordes Sodaland", centerX, 30, FONT_SIZE);
-  tft.drawCentreString("Press the button for a Soda!", centerX, centerY, FONT_SIZE);
+  // String tempText = "Active State";
+  // tft.drawCentreString(tempText, centerX, textY, FONT_SIZE);
+  // tft.drawCentreString("Welcome to Jordes Sodaland", centerX, 30, FONT_SIZE);
+  // tft.drawCentreString("Press the button for a Soda!", centerX, centerY, FONT_SIZE);
 
   // Draw Button
   tft.drawRect( BTN1_X, BTN1_Y, BTN1_WIDTH, BTN1_HEIGHT, TFT_BLACK);
+
+  // PlayGIF
+  gifIndex = 2; // gif for Active State
+  PlayGIF(gifFiles[gifIndex], 5); // Play GIF off of SD card for 5 seconds
 
   // Start Time for Inactive Timer
   standbyStart = now();
@@ -266,8 +273,12 @@ void StateStandBy() {
   int textY = 80;
  
   // Print to screen
-  String tempText = "StandBy State";
-  tft.drawCentreString(tempText, centerX, textY, FONT_SIZE);
+  // String tempText = "StandBy State";
+  // tft.drawCentreString(tempText, centerX, textY, FONT_SIZE);
+
+  // PlayGIF
+  gifIndex = 1; // gif for StandBy State
+  PlayGIF(gifFiles[gifIndex], 5); // Play GIF off of SD card for 5 seconds
 }
 
 void setup() {

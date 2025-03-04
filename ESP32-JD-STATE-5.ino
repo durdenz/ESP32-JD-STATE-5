@@ -39,7 +39,7 @@ XPT2046_Touchscreen touchscreen(XPT2046_CS, XPT2046_IRQ);
 // Define Button 1
 #define BTN1_X 30
 #define BTN1_Y 150
-#define BTN1_WIDTH 240
+#define BTN1_WIDTH 180
 #define BTN1_HEIGHT 35
 
 // Define State Machine States
@@ -60,7 +60,7 @@ int newState = 0;
 bool stateChange = false;
 
 // Standby Timer Variables
-#define STANDBY_DURATION 1  // Inactivity Timeout in Minutes
+#define STANDBY_DURATION 2  // Inactivity Timeout in Minutes
 time_t standbyStart = now();
 
 // Function to see if Button 1 has been pressed
@@ -249,7 +249,7 @@ void StateActive() {
 
   // PlayGIF
   gifIndex = 2; // gif for Active State
-  PlayGIF(gifFiles[gifIndex], 5, 20); // Play GIF off of SD card for 5 seconds
+  PlayGIF(gifFiles[gifIndex], 1, 5); // Play GIF off of SD card for 5 seconds
 
   // Start Time for Inactive Timer
   standbyStart = now();
@@ -362,6 +362,11 @@ bool PlayGIF(String gifFile, int iterations, int seconds) {
     #endif
       while (gif.playFrame(true, NULL)) {
         yield();
+        if (AnimateGIF == false) { // **** GD **** Test to see if we can break out
+          gif.close();
+          tft.fillScreen(TFT_BLACK);
+          return(true);
+        }
       }
       gif.close();
     } else {
@@ -369,13 +374,15 @@ bool PlayGIF(String gifFile, int iterations, int seconds) {
       Serial.println(gifFile.c_str());
       return (false);
     }
-    if ((second(now()) - second(startTime)) >= seconds) {
+    if ((seconds > 0) && ((second(now()) - second(startTime)) >= seconds)) {
       Serial.println("PlayGIF: Time Exceeded");
       AnimateGIF = false;
+      return(true);
     }
-    if (iCount++ > iterations) {
+    if ((iterations > 0) && (iCount++ > iterations)) {
       Serial.printf("PlayGIF: Iterations Exceeded, iCount = %d\n", iCount);
       AnimateGIF = false;
+      return(0);
     }
     if (AnimateGIF == false) {
       return(true);

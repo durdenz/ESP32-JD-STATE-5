@@ -36,9 +36,10 @@
     2. SD
     3. FS
     4. AnimatedGIF
+    5. JPEGDecoder
 
 ## Build and Download
-1. Copy ESP32_JD_STATE_4.ino into a new Sketch folder in Arduino IDE
+1. Copy ESP32_JD_STATE_5.ino into a new Sketch folder in Arduino IDE
 2. Set Arduino IDE to ESP32 Dev Module and the correct USB port
 3. Build and Upload Sketch to ESP32
 4. (If necessary for debug) Open Serial Monitor and set Baud Rate to 9600 baud

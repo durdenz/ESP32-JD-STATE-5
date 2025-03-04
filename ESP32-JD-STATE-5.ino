@@ -110,9 +110,15 @@ bool SD_Init(int cs) {
 // Create Pointer for hardware timer instance
 hw_timer_t *Timer0 = NULL;
 
+// Create mutex for irq handler
+portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
+
 // Interrupt handler for Timer0
 void IRAM_ATTR onTimer0()
 {
+  // Lock mutex during ISR
+  portENTER_CRITICAL_ISR(&timerMux);
+
   Serial.println("Timer0 IRQ Handler Entered");
 
   // Checks if Touchscreen was touched, then checks if button pressed and changes state
@@ -144,6 +150,9 @@ void IRAM_ATTR onTimer0()
       changeState(STATE_STANDBY);
     }
   }
+
+  // Unlock mutex ISR exit
+  portEXIT_CRITICAL_ISR(&timerMux);
 }
 
 // changeState - Set Semaphores to signal loop() on state changes

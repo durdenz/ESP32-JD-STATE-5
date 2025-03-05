@@ -249,7 +249,7 @@ void StateActive() {
 
   // PlayGIF
   gifIndex = 2; // gif for Active State
-  PlayGIF(gifFiles[gifIndex], 1, 5); // Play GIF off of SD card for 5 seconds
+  PlayGIF(gifFiles[gifIndex], 0, 0); // Play GIF off of SD card continuous loop
 
   // Start Time for Inactive Timer
   standbyStart = now();

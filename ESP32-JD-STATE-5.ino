@@ -64,6 +64,11 @@ bool stateChange = false;
 #define STANDBY_DURATION 2  // Inactivity Timeout in Minutes
 time_t standbyStart = now();
 
+// Stepper Motor Control 
+const int DIR = 23;   // GPIO Pin 23 for Direction
+const int STEP = 22;  // GPIO Pin 22 for Step
+const int steps_per_rev = 200;
+
 // Function to see if Button 1 has been pressed
 // Inputs are X and Y from touchscreen press
 // Returns true if X and Y are within Button 1 area
@@ -147,8 +152,7 @@ void IRAM_ATTR onTimer0()
     } else if (currentState == STATE_STANDBY) {
       changeState(STATE_ACTIVE);
     } else if (currentState == STATE_VENDING) {
-      // **TEMP** -> Stop Animations if screen is touched
-      // AnimateGIF = false;
+      // Nothing to do for now
     }
   } else {    // No Touchscreen Event
     // Check and see if inactivity time has been exceeded and if so, go into standby state
@@ -179,6 +183,15 @@ void Setup_Timer0() {
 //
 bool dispenseSoda() {
   // Put code here to drive motor and dispense soda
+  digitalWrite(DIR, HIGH); // Set Direction to Clockwise
+  Serial.println("Rotating Clockwise");
+
+  for (int i=0; i<steps_per_rev; i++) {
+      digitalWrite(STEP, HIGH);
+      delayMicroseconds(2000);
+      digitalWrite(STEP, LOW);
+      delayMicroseconds(2000);
+  }
   return(true);
 }
 
@@ -205,15 +218,14 @@ void StateVending() {
   // Print to screen
   // String tempText = "Vending State";
 
-  // Call Function to dispense Soda
-  //
-  dispenseSoda();
-
   // tft.drawCentreString(tempText, centerX, textY, FONT_SIZE);
 
   gifIndex = 0; // gif for Dispense State
   PlayGIF(gifFiles[gifIndex], 1, 5); // Play GIF off of SD card for 5 seconds
-  // delay(1000);
+
+  // Call Function to dispense Soda
+  //
+  dispenseSoda();
   
   // Vending is complete - Set State to Active 
   changeState(STATE_ACTIVE);
@@ -289,6 +301,10 @@ void StateStandBy() {
 
 void setup() {
   Serial.begin(9600);
+
+  // Setup the GPIO pins for the Stepper Motor
+    pinMode(STEP, OUTPUT);
+    pinMode(DIR, OUTPUT);
 
   // Start the SPI for the touchscreen and init the touchscreen
   //

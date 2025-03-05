@@ -28,6 +28,21 @@
 | SD_MISO | GPIO 12 | GRAY |
 | SD_SCK | GPIO 14 | WHITE |
 
+| A4988 Motor Controller | ESP32 | COLOR |
+| :--- | :--- | :--- |
+| DIR (PIN 8) | GPIO 23 | YELLOW |
+| STEP (PIN 7) | GPIO 22 | ORANGE |
+| VDD (PIN 10) | 5V VIN | RED |
+| GND (PIN 9) | GND | BLACK |
+| VMOT (PIN 16) | +12V | RED |
+| GND (PIN 15) | GND (12V) | BLACK |
+
+| A4988 Motor Controller | NMEA 17 STEPPER MOTOR | COLOR |
+| 1B (PIN 11) | 1B | BLACK |
+| 1A (PIN 12)| 1A | GREEN |
+| 2A (PIN 13)| 2A | BLUE |
+| 2B (PIN 14) | 2B | RED |
+
 ## PreRequisites
 - Connect ESP32 with TFT Display/Touchscreen and SD Card Reader per the wiring table above
 - Place image files from SDCARD folder onto SD Card

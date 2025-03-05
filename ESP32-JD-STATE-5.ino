@@ -281,7 +281,7 @@ void StateStandBy() {
 
   // PlayGIF
   gifIndex = 1; // gif for StandBy State
-  PlayGIF(gifFiles[gifIndex], 1, 5); // Play GIF off of SD card for 1 iteration or no longer than 5 seconds
+  PlayGIF(gifFiles[gifIndex], 0, 0); // Play GIF off of SD card for 1 iteration or no longer than 5 seconds
 
   // drawSdJpeg("/lena20k.jpg", 0, 0);     // This draws a jpeg pulled off the SD Card
 }

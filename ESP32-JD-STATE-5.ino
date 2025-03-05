@@ -14,7 +14,8 @@ AnimatedGIF gif;
 
 String gifFiles[] = {"/VendLoad.gif",
                     "/StandBy_NiCola_optimize.gif",
-                    "/Logo_Trans_Pos.gif"};
+                    "/Logo_Trans_Pos.gif",
+                    "/Header_Nicola_FULL.gif"};
 int gifIndex = 0;
 
 bool AnimateGIF = false;
@@ -248,7 +249,7 @@ void StateActive() {
   tft.drawRect( BTN1_X, BTN1_Y, BTN1_WIDTH, BTN1_HEIGHT, TFT_BLACK);
 
   // PlayGIF
-  gifIndex = 2; // gif for Active State
+  gifIndex = 3; // gif for Active State
   PlayGIF(gifFiles[gifIndex], 0, 0); // Play GIF off of SD card continuous loop
 
   // Start Time for Inactive Timer

@@ -186,7 +186,14 @@ bool dispenseSoda() {
   digitalWrite(DIR, HIGH); // Set Direction to Clockwise
   Serial.println("Rotating Clockwise");
 
-  for (int i=0; i<steps_per_rev; i++) {
+  for (int i=0; i<(steps_per_rev/2); i++) {
+      digitalWrite(STEP, HIGH);
+      delayMicroseconds(2000);
+      digitalWrite(STEP, LOW);
+      delayMicroseconds(2000);
+  }
+  delay(1000);
+  for (int i=0; i<(steps_per_rev/2); i++) {
       digitalWrite(STEP, HIGH);
       delayMicroseconds(2000);
       digitalWrite(STEP, LOW);
